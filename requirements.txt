@@ -1,0 +1,53 @@
+# AI-103 Katas — Python dependencies
+#
+#   pip install -r requirements.txt          # everything except the evaluation SDK
+#   pip install -r requirements-eval.txt     # adds azure-ai-evaluation (units 01.4, 02.1, 02.2, 02.4)
+#
+# The evaluation SDK is split out because it hard-pins pandas<3.0, which has no
+# prebuilt wheel for Windows ARM64. See requirements-eval.txt for the details and
+# the workaround. On x64 (Windows, macOS, Linux) just install both.
+
+# --- Foundry / core ---------------------------------------------------------
+azure-ai-projects>=1.0.0
+azure-ai-agents>=1.0.0
+azure-ai-inference>=1.0.0b9
+azure-identity>=1.19.0
+openai>=1.60.0
+
+# cryptography (pulled in by azure-identity) stopped publishing win_arm64 wheels
+# after 46.0.3 — even 46.0.4-46.0.7 are source-only there — so on Windows ARM64
+# pip would try to compile it, which needs both MSVC and a Rust toolchain.
+# Pin the exact last version that has a wheel. The marker means x64 and
+# macOS/Linux are unaffected and get the newest release.
+cryptography==46.0.3; platform_system == "Windows" and platform_machine == "ARM64"
+
+# --- Observability ----------------------------------------------------------
+azure-monitor-opentelemetry>=1.6.0
+opentelemetry-sdk>=1.29.0
+
+# --- Retrieval / information extraction ------------------------------------
+azure-search-documents>=11.6.0b8
+azure-storage-blob>=12.24.0
+azure-ai-documentintelligence>=1.0.0
+
+# --- Language / speech ------------------------------------------------------
+azure-ai-textanalytics>=5.3.0
+azure-ai-translation-text>=1.0.0
+azure-cognitiveservices-speech>=1.42.0
+
+# --- Content safety ---------------------------------------------------------
+azure-ai-contentsafety>=1.0.0
+
+# --- Management plane (quotas, deployments, RBAC) ---------------------------
+azure-mgmt-cognitiveservices>=13.5.0
+azure-mgmt-resource>=23.2.0
+azure-mgmt-authorization>=4.0.0
+
+# --- Notebook tooling -------------------------------------------------------
+ipykernel>=6.29.0
+python-dotenv>=1.0.1
+requests>=2.32.0
+pillow>=11.0.0
+
+# Note: pandas/numpy are deliberately NOT listed here. No lab imports them
+# directly. See requirements-eval.txt for why that matters on Windows ARM64.

@@ -1,0 +1,34 @@
+# --- secrets: never commit -------------------------------------------------
+# .env holds your tenant id, subscription id, resource names and possibly keys.
+# It is generated per-person by scripts/01_connect_azure.ps1.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.publishsettings
+secrets.json
+appsettings.*.local.json
+azure.auth
+.azure/
+
+# --- generated / local -----------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+**/lab_output/
+scripts/.provision-state.json
+
+# NOTE: ai103-learning.json (course progress) IS tracked — it ships with the
+# course so a fresh clone starts at unit 00. It contains no secrets, only a
+# position marker and completion ticks.
+
+# --- OS / editor -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+.vscode/settings.json

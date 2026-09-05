@@ -1,0 +1,277 @@
+{
+  "$comment": "AI-103 Katas course manifest. Every 'objectives' entry is a verbatim bullet from the AI-103 study guide (skills measured as of 2026-04-16). Used by 90_summary to prove full coverage.",
+  "courseId": "ai103",
+  "title": "AI-103 Katas — Developing AI Apps and Agents on Azure",
+  "studyGuideVersion": "2026-04-16",
+  "studyGuideUrl": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",
+  "language": "python",
+  "units": [
+    {
+      "unitId": "00_setup",
+      "title": "Setup — connect your Azure tenant",
+      "domain": null,
+      "weight": null,
+      "activities": [
+        { "activityId": "connect_subscription", "title": "Sign in and choose a subscription", "objectives": [] },
+        { "activityId": "create_foundry_project", "title": "Create a Foundry resource and project in the portal", "objectives": [] },
+        { "activityId": "deploy_first_model", "title": "Deploy your first model", "objectives": [] },
+        { "activityId": "cost_guard", "title": "Set a budget alert", "objectives": [] },
+        { "activityId": "verify", "title": "Verify the environment", "objectives": [] }
+      ]
+    },
+
+    {
+      "unitId": "01_choose_services_and_models",
+      "domain": "Plan and manage an Azure AI solution",
+      "weight": "25-30%",
+      "title": "Choose the appropriate Foundry services for generative AI and agents",
+      "activities": [
+        { "activityId": "model_selection", "title": "Choose a model for each task", "objectives": [
+          "Choose an appropriate model for each task, including large language models (LLMs), small language models, multimodal models, and Foundry Tools" ] },
+        { "activityId": "service_selection", "title": "Choose services for generation, grounding, search, agents, multimodal", "objectives": [
+          "Choose the appropriate Foundry services for generative tasks, grounding, vector search, agent workflows, or multimodal processing" ] },
+        { "activityId": "retrieval_selection", "title": "Choose a retrieval and indexing method", "objectives": [
+          "Choose an appropriate method for retrieval and indexing" ] },
+        { "activityId": "agent_integration_selection", "title": "Choose memory, tool, and knowledge integration services", "objectives": [
+          "Choose appropriate memory, tool, and knowledge integration services for agent solutions" ] }
+      ]
+    },
+    {
+      "unitId": "02_setup_foundry_solutions",
+      "domain": "Plan and manage an Azure AI solution",
+      "weight": "25-30%",
+      "title": "Set up AI solutions in Foundry",
+      "activities": [
+        { "activityId": "infrastructure_design", "title": "Design Azure infrastructure for AI apps and agents", "objectives": [
+          "Design Azure infrastructure for AI apps and agent-based solutions" ] },
+        { "activityId": "deployment_options", "title": "Choose deployment options", "objectives": [
+          "Choose appropriate deployment options" ] },
+        { "activityId": "configure_deployments", "title": "Configure model and agent deployments", "objectives": [
+          "Configure model and agent deployments" ] },
+        { "activityId": "cicd", "title": "Integrate Foundry projects with CI/CD pipelines", "objectives": [
+          "Integrate Foundry projects with continuous integration and continuous deployment (CI/CD) pipelines" ] }
+      ]
+    },
+    {
+      "unitId": "03_manage_monitor_secure",
+      "domain": "Plan and manage an Azure AI solution",
+      "weight": "25-30%",
+      "title": "Manage, monitor, and secure AI systems",
+      "activities": [
+        { "activityId": "quotas_and_cost", "title": "Quotas, scaling, rate limits, and cost", "objectives": [
+          "Manage quotas, scaling, rate limits, and cost footprints for model and agent workloads" ] },
+        { "activityId": "monitor_models", "title": "Monitor performance, drift, safety events, grounding quality", "objectives": [
+          "Monitor model performance, drift, safety events, and grounding quality" ] },
+        { "activityId": "monitor_ingestion", "title": "Monitor ingestion, index health, and relevance", "objectives": [
+          "Monitor data ingestion quality, search index health, and relevance performance" ] },
+        { "activityId": "security", "title": "Managed identity, private networking, keyless credentials, RBAC", "objectives": [
+          "Configure security, including managed identity, private networking, keyless credentials, and role policies" ] }
+      ]
+    },
+    {
+      "unitId": "04_responsible_ai",
+      "domain": "Plan and manage an Azure AI solution",
+      "weight": "25-30%",
+      "title": "Implement responsible AI across generative AI and agentic systems",
+      "activities": [
+        { "activityId": "safety_filters", "title": "Safety filters, guardrails, risk detection, moderation", "objectives": [
+          "Configure safety filters, guardrails, risk detection, and content moderation" ] },
+        { "activityId": "rai_instrumentation", "title": "Evaluators, safety evaluations, explanation tooling", "objectives": [
+          "Apply responsible AI instrumentation, including evaluators, safety evaluations, and explanation tooling" ] },
+        { "activityId": "auditing", "title": "Trace logging, provenance metadata, approval workflows", "objectives": [
+          "Implement auditing through trace logging, provenance metadata, and approval workflows" ] },
+        { "activityId": "agent_governance", "title": "Oversight modes, constraints, tool-access controls", "objectives": [
+          "Govern agent behavior with oversight modes, constraints, and tool-access controls" ] }
+      ]
+    },
+
+    {
+      "unitId": "01_generative_apps",
+      "domain": "Implement generative AI and agentic solutions",
+      "weight": "30-35%",
+      "title": "Build generative applications by using Foundry",
+      "activities": [
+        { "activityId": "consume_models", "title": "Deploy and consume LLM, SLM, code, and multimodal models", "objectives": [
+          "Deploy and consume LLMs, small models, code models, and multimodal models" ] },
+        { "activityId": "connect_project", "title": "Connect an application to a Foundry project", "objectives": [
+          "Configure an application to connect to a Foundry project",
+          "Integrate generative workflows into applications by using Foundry SDKs and connectors" ] },
+        { "activityId": "evaluate_apps", "title": "Evaluate models and apps", "objectives": [
+          "Evaluate models and apps, including detecting fabrications, relevance, quality, and safety" ] }
+      ]
+    },
+    {
+      "unitId": "02_rag_grounding",
+      "domain": "Implement generative AI and agentic solutions",
+      "weight": "30-35%",
+      "title": "RAG, workflows, and multistep reasoning",
+      "activities": [
+        { "activityId": "implement_rag", "title": "Implement RAG in an application", "objectives": [
+          "Implement retrieval-augmented generation (RAG) in an application" ] },
+        { "activityId": "workflows", "title": "Workflows, tool-augmented flows, multistep reasoning", "objectives": [
+          "Design workflows, tool-augmented flows, and multistep reasoning pipelines" ] }
+      ]
+    },
+    {
+      "unitId": "03_build_agents",
+      "domain": "Implement generative AI and agentic solutions",
+      "weight": "30-35%",
+      "title": "Build agents by using Foundry",
+      "activities": [
+        { "activityId": "agent_design", "title": "Roles, goals, conversation tracking, tool schemas", "objectives": [
+          "Define agent roles, goals, conversation-tracking approach, and tool schemas" ] },
+        { "activityId": "agent_capabilities", "title": "Retrieval, function calling, conversation memory", "objectives": [
+          "Build agents that integrate retrieval, function-calling, and conversation memory" ] },
+        { "activityId": "agent_tools", "title": "Integrate agent tools", "objectives": [
+          "Integrate agent tools, including APIs, knowledge stores, search, content understanding, and custom functions" ] }
+      ]
+    },
+    {
+      "unitId": "04_multi_agent_and_approvals",
+      "domain": "Implement generative AI and agentic solutions",
+      "weight": "30-35%",
+      "title": "Multi-agent orchestration, safeguards, and monitoring",
+      "activities": [
+        { "activityId": "multi_agent", "title": "Orchestrated multi-agent solutions", "objectives": [
+          "Implement orchestrated multi-agent solutions" ] },
+        { "activityId": "approvals", "title": "Autonomous workflows with safeguards and approvals", "objectives": [
+          "Build autonomous or semiautonomous workflows with safeguards and approval flow controls" ] },
+        { "activityId": "agent_monitoring", "title": "Monitor, evaluate, and error-analyse deployed agents", "objectives": [
+          "Integrate monitoring into deployed agents, evaluate agent behavior, and perform error analysis" ] }
+      ]
+    },
+    {
+      "unitId": "05_optimize_and_observe",
+      "domain": "Implement generative AI and agentic solutions",
+      "weight": "30-35%",
+      "title": "Optimize and operationalize generative AI systems",
+      "activities": [
+        { "activityId": "tune_generation", "title": "Prompt engineering and model parameters", "objectives": [
+          "Tune generation behavior, such as prompt engineering and adjusting model parameters" ] },
+        { "activityId": "reflection", "title": "Reflection, chain-of-thought evaluation, self-critique", "objectives": [
+          "Implement model reflection, chain-of-thought evaluations, and self-critique loops" ] },
+        { "activityId": "observability", "title": "Tracing, token analytics, safety signals, latency", "objectives": [
+          "Set up observability by implementing tracing, token analytics, safety signals, and latency breakdowns" ] },
+        { "activityId": "orchestration", "title": "Orchestrate multiple models and hybrid LLM + rules engines", "objectives": [
+          "Orchestrate multiple models, flows, or hybrid LLM and rules engines" ] }
+      ]
+    },
+
+    {
+      "unitId": "01_image_and_video_generation",
+      "domain": "Implement computer vision solutions",
+      "weight": "10-15%",
+      "title": "Design and implement image- and video-generation solutions",
+      "activities": [
+        { "activityId": "image_generation", "title": "Generate images from text prompts and reference media", "objectives": [
+          "Implement a solution that generates images from text prompts and reference media" ] },
+        { "activityId": "video_generation", "title": "Generate videos from text prompts and reference media", "objectives": [
+          "Implement a solution that generates videos from text prompts and reference media" ] },
+        { "activityId": "image_editing", "title": "Inpainting, mask-based edits, prompt-driven modification", "objectives": [
+          "Configure image-editing workflows, including inpainting, mask-based edits, and prompt-driven modifications" ] },
+        { "activityId": "video_editing", "title": "Edit generated videos", "objectives": [
+          "Implement workflows to edit generated videos",
+          "Select and apply appropriate generation and editing controls provided by the platform" ] }
+      ]
+    },
+    {
+      "unitId": "02_multimodal_understanding",
+      "domain": "Implement computer vision solutions",
+      "weight": "10-15%",
+      "title": "Design and implement multimodal understanding workflows",
+      "activities": [
+        { "activityId": "visual_context", "title": "Analyze visual context with multimodal models", "objectives": [
+          "Build a solution that analyzes visual context by using multimodal models" ] },
+        { "activityId": "captioning", "title": "Captions, visual QA, and accessibility alt-text", "objectives": [
+          "Configure apps to produce concise or detailed captions for single or multiple images",
+          "Implement a solution that enables question-answering grounded in visual evidence",
+          "Configure generation of alt-text and extended image descriptions aligned to accessibility guidelines" ] },
+        { "activityId": "content_understanding_visual", "title": "Content Understanding for visual characteristics", "objectives": [
+          "Implement visual understanding by configuring Azure Content Understanding in Foundry Tools to extract visual characteristics",
+          "Configure single-task and pro-mode Content Understanding pipelines" ] },
+        { "activityId": "video_and_objects", "title": "Video analysis and object/region identification", "objectives": [
+          "Implement video analysis workflows to process and interpret video segments",
+          "Implement solutions that identify objects, components, or regions within images or video" ] }
+      ]
+    },
+    {
+      "unitId": "03_responsible_ai_multimodal",
+      "domain": "Implement computer vision solutions",
+      "weight": "10-15%",
+      "title": "Implement responsible AI for multimodal content",
+      "activities": [
+        { "activityId": "visual_content_filters", "title": "Classify unsafe or disallowed visual content", "objectives": [
+          "Implement filters to classify unsafe or disallowed visual content" ] },
+        { "activityId": "indirect_injection", "title": "Indirect prompt injection via text embedded in images", "objectives": [
+          "Detect and mitigate indirect prompt injection by using embedded text in images" ] },
+        { "activityId": "visual_policy", "title": "Watermarks, prohibited symbols, brand usage rules", "objectives": [
+          "Enforce visual policy rules, such as applying watermarks, flagging prohibited symbols, upholding brand usage requirements, and detecting potentially inappropriate content" ] }
+      ]
+    },
+
+    {
+      "unitId": "01_language_model_text_analysis",
+      "domain": "Implement text analysis solutions",
+      "weight": "10-15%",
+      "title": "Apply language model text analysis",
+      "activities": [
+        { "activityId": "structured_extraction", "title": "Entities, topics, summaries, structured JSON", "objectives": [
+          "Implement solutions to extract entities, topics, summaries, and structured JSON outputs by using generative prompting and Foundry Tools" ] },
+        { "activityId": "sentiment_and_pii", "title": "Sentiment, tone, safety issues, sensitive content", "objectives": [
+          "Configure detection of sentiment, tone, safety issues, and sensitive content" ] },
+        { "activityId": "translation", "title": "Translate text with Translator or LLM flows", "objectives": [
+          "Build solutions that translate text by using Azure Translator in Foundry Tools or LLM-powered translation flows" ] },
+        { "activityId": "domain_customization", "title": "Customize outputs for domain tasks", "objectives": [
+          "Customize language model outputs for domain tasks, such as compliance summarization and domain extraction" ] }
+      ]
+    },
+    {
+      "unitId": "02_speech_solutions",
+      "domain": "Implement text analysis solutions",
+      "weight": "10-15%",
+      "title": "Implement speech solutions",
+      "activities": [
+        { "activityId": "stt_tts", "title": "Speech to text and text to speech", "objectives": [
+          "Implement workflows to convert speech to text and text to speech for agentic interactions" ] },
+        { "activityId": "speech_as_modality", "title": "Speech as an agent modality, custom speech models", "objectives": [
+          "Integrate speech as an agent modality, including custom speech models" ] },
+        { "activityId": "audio_reasoning", "title": "Multimodal reasoning from audio inputs", "objectives": [
+          "Enable multimodal reasoning from audio inputs" ] },
+        { "activityId": "speech_translation", "title": "Translate speech into other languages", "objectives": [
+          "Translate speech into other languages by using language models and Foundry Tools" ] }
+      ]
+    },
+
+    {
+      "unitId": "01_retrieval_and_grounding",
+      "domain": "Implement information extraction solutions",
+      "weight": "10-15%",
+      "title": "Build retrieval and grounding pipelines",
+      "activities": [
+        { "activityId": "ingest_and_index", "title": "Ingest and index documents, images, audio, video", "objectives": [
+          "Ingest and index content, such as documents, images, audio, and video" ] },
+        { "activityId": "search_modes", "title": "Semantic, hybrid, and vector search", "objectives": [
+          "Configure semantic search, hybrid search, and vector search for grounding" ] },
+        { "activityId": "enrichment", "title": "Built-in and custom skills for text, images, layout", "objectives": [
+          "Implement enrichment by using custom or built-in skills for text, images, and layout" ] },
+        { "activityId": "rag_ingestion", "title": "RAG ingestion flow with OCR", "objectives": [
+          "Configure RAG ingestion flow, including documents and using optical character recognition (OCR)",
+          "Connect retrieval pipelines directly to workflows and agent tools" ] }
+      ]
+    },
+    {
+      "unitId": "02_document_extraction",
+      "domain": "Implement information extraction solutions",
+      "weight": "10-15%",
+      "title": "Extract content from documents",
+      "activities": [
+        { "activityId": "multimodal_extraction", "title": "OCR, layout analysis, and field extraction", "objectives": [
+          "Extract information by using multimodal pipelines that combine OCR, layout analysis, and field extraction" ] },
+        { "activityId": "grounded_representations", "title": "Clean grounded representations with Content Understanding", "objectives": [
+          "Produce clean, grounded representations to use with agents and RAG by using Content Understanding" ] },
+        { "activityId": "analyzers", "title": "Analyzers for structured or markdown output", "objectives": [
+          "Implement analyzers for generating structured or markdown outputs for downstream reasoning by using Content Understanding" ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+# AI-103 Katas — the evaluation SDK
+#
+#   pip install -r requirements-eval.txt
+#
+# Needed by units 01.4 (responsible AI), 02.1 (evaluate apps), 02.2 (RAG
+# groundedness), and 02.4 (agent evaluators). Every other unit runs without it.
+#
+# ---------------------------------------------------------------------------
+# Windows ARM64: read this before you install
+# ---------------------------------------------------------------------------
+# azure-ai-evaluation hard-pins  pandas<3.0.0,>=2.1.2 .
+# pandas ships NO win_arm64 wheel below 3.0, so pip falls back to building it
+# from source and fails with:
+#
+#   ERROR: Could not find ...\Microsoft Visual Studio\Installer\vswhere.exe
+#
+# Because pip installs a requirements file as one transaction, that single
+# failure aborts the whole install — which is why the evaluation SDK lives in
+# this separate file.
+#
+# Three options on ARM64, best first:
+#
+#   1. Run the four evaluation units from an x64 environment: GitHub Codespaces,
+#      a Linux/WSL2 shell, or an Azure ML compute instance. Cleanest, no build
+#      tools, and matches what the exam labs assume.
+#
+#   2. Install the C++ build tools, then install normally. ~7 GB:
+#        winget install Microsoft.VisualStudio.2022.BuildTools `
+#          --override "--quiet --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+#
+#   3. Force pandas 3.x and ignore the pin. The evaluators only use basic
+#      DataFrame operations, so this generally works, but it is unsupported and
+#      `evaluate()` may break on a future release:
+#        pip install "pandas>=3.0"
+#        pip install azure-ai-evaluation --no-deps
+#        pip install promptflow-core promptflow-devkit  # runtime deps of evaluate()
+#
+# On x64 (Windows, macOS, Linux) none of this applies — just install.
+# ---------------------------------------------------------------------------
+
+azure-ai-evaluation>=1.3.0
