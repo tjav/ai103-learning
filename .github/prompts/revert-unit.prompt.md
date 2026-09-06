@@ -7,12 +7,12 @@ agent: "agent"
 
 # Revert a unit
 
-Reset one unit of the AI-103 course in [ai103-learning](../../ai103-learning/README.md)
+Reset one unit of the AI-103 course described in the [main README](../../README.md)
 so the learner can do it again from scratch.
 
 The unit to revert is in the prompt argument. If it is empty, check the active
 editor for an open unit file and offer that one; otherwise list the units from
-`ai103-learning/course.json` and ask.
+the Course map in `README.md` and ask.
 
 ## The one rule that matters
 
@@ -27,7 +27,7 @@ So the default action — the one you take unless told otherwise — is:
 
 **Revert never deletes Azure resources.** Not one deployment, not one index, not
 one agent. That is teardown, and it lives in
-`ai103-learning/99_teardown/README.md`. If the learner wants resources gone, point
+`99_teardown/README.md`. If the learner wants resources gone, point
 them there and stop — do not do it from this prompt.
 
 The reason is unit 00. It is the unit that *created the whole lab environment*, so
@@ -40,12 +40,13 @@ is non-trivial. Never widen scope beyond the unit they named.
 
 ## Step 1 — Resolve the unit and find its files
 
-Read `ai103-learning/course.json` to map the unit number to its folder. Then list
-what actually exists:
+Use the Course map links in `README.md` to map the friendly unit number to its
+folder, then read `course.json` for the unit's activities. List what actually
+exists:
 
 ```powershell
-$unit = '02_build_agents/03_build_and_deploy_agents'   # from course.json
-Get-ChildItem "ai103-learning/$unit" -Recurse -File | Select-Object FullName, Length, LastWriteTime
+$unit = '02_genai_and_agents/03_build_agents'   # from course.json
+Get-ChildItem $unit -Recurse -File | Select-Object FullName, Length, LastWriteTime
 ```
 
 ## Step 2 — Show what will be lost, before touching anything
@@ -53,7 +54,7 @@ Get-ChildItem "ai103-learning/$unit" -Recurse -File | Select-Object FullName, Le
 Do not summarise this vaguely. Be concrete. Count what is actually there:
 
 ```powershell
-& .venv\Scripts\python.exe -c "import json;nb=json.load(open('ai103-learning/$unit/lab.ipynb',encoding='utf-8'));c=[x for x in nb['cells'] if x['cell_type']=='code'];print('code cells',len(c),'| with outputs',sum(1 for x in c if x.get('outputs')),'| executed',sum(1 for x in c if x.get('execution_count')))"
+& .venv\Scripts\python.exe -c "import json;nb=json.load(open('$unit/lab.ipynb',encoding='utf-8'));c=[x for x in nb['cells'] if x['cell_type']=='code'];print('code cells',len(c),'| with outputs',sum(1 for x in c if x.get('outputs')),'| executed',sum(1 for x in c if x.get('execution_count')))"
 ```
 
 A lab with **zero outputs and zero executions is an untouched scaffold** — say so
@@ -68,15 +69,15 @@ git -C . rev-parse --is-inside-work-tree 2>$null
 If it is, use git and offer a stash as the escape hatch:
 
 ```powershell
-git -C . status --short -- "ai103-learning/$unit"
-git -C . stash push -u -m "ai103 revert $unitNumber" -- "ai103-learning/$unit"
+git -C . status --short -- $unit
+git -C . stash push -u -m "ai103 revert $unitNumber" -- $unit
 ```
 
-**If it is not a repository — and this workspace is not — there is no undo.** Say
+**If it is not a repository, there is no built-in undo.** Say
 that out loud, and take a real copy before clearing anything:
 
 ```powershell
-Copy-Item "ai103-learning/$unit/lab.ipynb" "ai103-learning/$unit/lab.ipynb.bak" -Force
+Copy-Item "$unit/lab.ipynb" "$unit/lab.ipynb.bak" -Force
 ```
 
 Then report in this shape:
@@ -90,8 +91,8 @@ Then report in this shape:
 Prefer git, because it restores the exact authored state:
 
 ```powershell
-git -C . checkout HEAD -- "ai103-learning/$unit/lab.ipynb"
-git -C . checkout HEAD -- "ai103-learning/$unit/quiz.md"
+git -C . checkout HEAD -- "$unit/lab.ipynb"
+git -C . checkout HEAD -- "$unit/quiz.md"
 ```
 
 If the file is untracked or git is unavailable, clear the notebook by hand instead
@@ -102,7 +103,7 @@ its markdown explanations are the course content, not the learner's work.
 If they only want outputs cleared while keeping their code, do that alone:
 
 ```powershell
-& .venv\Scripts\python.exe -m jupyter nbconvert --clear-output --inplace "ai103-learning/$unit/lab.ipynb"
+& .venv\Scripts\python.exe -m jupyter nbconvert --clear-output --inplace "$unit/lab.ipynb"
 ```
 
 Offer this variant explicitly — "just clear the outputs, keep my code" is a common
@@ -132,7 +133,7 @@ than pretending you changed something.**
 Revert does not touch Azure. But it is useful to **tell** the learner what the unit
 left behind, so they can decide for themselves.
 
-Read `ai103-learning/.env` for their real names — never placeholders — then list
+Read `.env` from the repository root for their real names — never placeholders — then list
 what exists and what it costs at rest:
 
 ```powershell
@@ -156,7 +157,7 @@ anything** — that is usually the answer, and it saves them rebuilding an
 environment for no benefit.
 
 If they do want resources gone, send them to
-`ai103-learning/99_teardown/README.md`. Do not delete on their behalf here, even if
+`99_teardown/README.md`. Do not delete on their behalf here, even if
 asked directly — the teardown guide exists so that deletion is deliberate, ordered,
 and aware of the 48-hour Cognitive Services name reservation.
 
@@ -165,7 +166,7 @@ and aware of the 48-hour Cognitive Services name reservation.
 Safe to remove without much ceremony, but still list them first:
 
 ```powershell
-Get-ChildItem "ai103-learning/$unit" -Recurse -Include __pycache__,*.pyc,.ipynb_checkpoints |
+Get-ChildItem $unit -Recurse -Include __pycache__,*.pyc,.ipynb_checkpoints |
     Remove-Item -Recurse -Force
 ```
 
@@ -187,7 +188,7 @@ Then end with:
 
 ## Notes
 
-- `ai103-learning/.env` is git-ignored. Git will never restore it and
+- `.env` is git-ignored. Git will never restore it and
   `git checkout` will never destroy it.
 - Notebook outputs can hold model responses, sample data, and occasionally keys.
   Clearing outputs before committing is good hygiene — mention it if you see keys.
@@ -197,5 +198,5 @@ Then end with:
   is exactly why revert stops at learning state.
 - `all` is a legitimate argument: reset progress, files and artifacts across every
   unit. It still does not touch Azure.
-- This workspace is **not a git repository**. Do not assume `git checkout` or
-  `git stash` are available — check, and fall back to a `.bak` copy.
+- This course is normally cloned as a git repository, but always verify before
+  relying on `git checkout` or `git stash`; fall back to a `.bak` copy if needed.

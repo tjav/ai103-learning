@@ -100,7 +100,8 @@ pwsh scripts/03_provision_labs.ps1     # Search, Storage, Speech, Translator, Co
 python scripts/verify_environment.py
 ```
 
-Then open [00_setup/README.md](00_setup/README.md) and work forward.
+Then open [00_setup/README.md](00_setup/README.md) and work forward. You can read
+and run everything manually, or use the workspace prompts below for guided help.
 
 Script `01_connect_azure.ps1` writes a `.env` file (git-ignored) with every
 endpoint and resource name the notebooks need. See [.env.example](.env.example)
@@ -116,10 +117,33 @@ for the full list of variables.
 > Azure portal", or Ctrl/Cmd-click any portal link. Details in
 > [00_setup](00_setup/README.md#where-to-open-the-portal).
 
-> **Want a guided portal exercise?** Type **`/portal-walkthrough 02.3`** in chat
-> (any unit number). The agent opens the right portal beside your editor and walks
-> you through the clicks one step at a time, verifying as you go — **you** click,
-> it guides. Add "demo mode" if you would rather watch it drive.
+## Using the course prompts
+
+The reusable prompts are in [.github/prompts](.github/prompts). In VS Code or
+Discovery chat, type `/`, choose a prompt, and add a unit number or topic. If a
+prompt does not appear immediately after cloning, reload the editor window so it
+discovers the workspace prompt files.
+
+| Prompt | What it does | Example |
+|---|---|---|
+| **`/explain`** | Adds context to a unit, topic, portal field, exam distinction, or selected code. It reads the course material, explains the idea in plain English, gives an example and exam lens, and links to current official Microsoft Learn documentation. It is read-only. | **`/explain 01.2 DataZoneStandard vs GlobalStandard`** |
+| **`/portal-walkthrough`** | Opens the correct Azure or Foundry portal in the integrated browser and teaches one screen at a time. It verifies the tenant and what you build. Navigation is automatic; resource changes require confirmation because they can cost money. | **`/portal-walkthrough 02.3`** |
+| **`/revert-unit`** | Resets the selected unit's learning progress and local lab work so you can redo it. It **never deletes Azure resources**; cloud cleanup belongs to unit 99. | **`/revert-unit 01.2`** |
+
+Useful examples:
+
+- **`/explain 02.2 RAG`** — understand retrieval-augmented generation before the lab.
+- **`/explain why managed identity is preferred over API keys`** — explain a topic without knowing its unit number.
+- Select code in a notebook, then use **`/explain this code`** — get a line-by-line mental model without receiving the full lab solution.
+- **`/portal-walkthrough 01.3 let me click`** — you drive while the agent gives exact click paths and verifies each screen.
+- **`/portal-walkthrough 01.2 demo mode`** — the agent navigates while narrating each screen; it still asks before any write or billable action.
+- **`/revert-unit 00`** — reset setup progress without destroying the shared Azure environment.
+
+The prompts use the **Course map** above to resolve friendly numbers such as
+`01.2`, then [course.json](course.json) for the unit objectives. You can also name
+a topic instead of a number. `/explain` uses Microsoft Learn as the source of truth
+when Azure documentation has changed; `/portal-walkthrough` uses the unit
+instructions plus what is actually visible in your tenant.
 
 ---
 
@@ -164,7 +188,7 @@ monthly, so trust that output over any table — including this one.
 
 ## Progress tracking
 
-Progress lives in [`../ai103-learning.json`](../ai103-learning.json), using the same
+Progress lives in [ai103-learning.json](ai103-learning.json), using the same
 schema as `qdk-learning.json`:
 
 ```json

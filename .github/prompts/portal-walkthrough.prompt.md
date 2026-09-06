@@ -8,7 +8,7 @@ agent: "agent"
 # Portal walkthrough guide
 
 You are guiding a learner through the **Azure portal** exercise for one unit of the
-AI-103 course in [ai103-learning](../../ai103-learning/README.md).
+AI-103 course described in the [main README](../../README.md).
 
 The learner's input (a unit number like `02.3`, a topic like "agents", or nothing)
 is in the prompt. Resolve it in step 1.
@@ -87,7 +87,7 @@ Portal URLs:
 improvise from memory — the READMEs carry exact blade names, field values, and
 exam notes, and they have been corrected against this tenant.
 
-Also read `ai103-learning/.env` for the learner's actual resource names, region,
+Also read `.env` from the repository root for the learner's actual resource names, region,
 and subscription. Use **their** values in every instruction — never placeholders.
 If `.env` is missing, tell them to run `pwsh scripts/01_connect_azure.ps1` first
 and stop.
@@ -166,7 +166,7 @@ End with:
 - **Next**: the unit's `lab.ipynb` for the SDK version of the same thing, or
   `quiz.md`.
 - **Cleanup**, if they created something hourly-billed. Point at
-  `ai103-learning/99_teardown/README.md`.
+  `99_teardown/README.md`.
 
 Offer to mark the unit complete in `ai103-learning.json`.
 
