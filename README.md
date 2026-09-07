@@ -81,7 +81,7 @@ Each unit folder contains:
 
 This **private AI-103 course repository** stays separate from the
 [Cert Learner extension repository](https://github.com/tjav/cert-learner).
-The workflow below describes the **v0.1.1 implementation**, not a guarantee that
+The workflow below describes the **v0.2.0 implementation**, not a guarantee that
 that version has been published. Both repositories are private; obtain a compatible
 VSIX from a release you can access, the maintainer, or a local build.
 
@@ -89,12 +89,16 @@ VSIX from a release you can access, the maintainer, or a local build.
   then use **Extensions: Install from VSIX...** in VS Code / Discovery. Reload
   if prompted. The course remains usable without the extension.
 2. Open this local course folder; its root [course.json](course.json) is discovered
-  automatically. For another location, choose **Learning: Add Course** and select
-  the **course folder containing the manifest**, not the manifest file. In
+  automatically. For another location, choose **Learning: Add Course → Local folder**
+  and select the **course folder containing the manifest**, not the manifest file.
+  To obtain a new copy, choose **GitHub repository** instead (details below). In
   **Learning**, read **Course overview** or choose a unit and activity; use
   **Learning: Resume Course** to return later. If these commands are unavailable,
   use the file-based course workflow below until a compatible build is installed.
-3. Read the lesson, then choose **Open lab** or **Open quiz**. For a lab, select
+3. Expand a unit for its activities followed by **Lab** and **Quiz** children.
+  These open the same resources as the lesson panel's **Open lab / Open quiz**
+  buttons, without changing the current activity, resume position, or progress.
+  They are resources, not additional tracked activities. For a lab, select
   your intended Python environment with the notebook's **Select Kernel** control.
   Run only the cells you have reviewed. **Never Run All blindly: final cleanup
   cells can delete resources.**
@@ -117,6 +121,46 @@ VSIX from a release you can access, the maintainer, or a local build.
   **select general Agent mode, review, and submit the draft yourself**. Use general
   Agent mode, not `@certlearning`, for browser/file tools. If chat cannot open,
   **Copy draft** offers the same request without running it.
+
+**GitHub add:** enter `https://github.com/tjav/ai103-learning` (optional `.git`),
+choose an existing local **parent folder**, then review and confirm the exact new
+repository-named child destination. Only HTTPS repository-root URLs and the default
+branch are supported, not SSH, tree/blob, branch/subfolder links, or URL parameters.
+Installed Git, workspace trust, and repository access are required. Any existing
+destination is refused, **even an empty folder**. Sign in separately with Git/Git
+Credential Manager first; previously configured trusted credential helpers supply
+private access noninteractively. **Never paste credentials or tokens into the input.**
+The clone skips hooks and submodules, then checks out with isolated Git configuration
+to suppress filters; no course checks, notebook cells, requirements installation,
+or provisioning runs. Trusted authentication helpers may run, so this is **not a
+whole-process sandbox**. Failed/canceled clones retain any created folder, possibly
+partial, without registration. Missing/invalid root [course.json](course.json)
+also leaves the clone unregistered; use **Add Course → Local folder** on a valid
+course subfolder if applicable. There is no automatic course update/sync.
+
+**Practice grading:** **Quiz** reads the existing unit Markdown using the strict
+[authoring grammar](AUTHORING.md#quiz-compatibility-in-cert-learner-v020); originals
+remain readable and unchanged. Single-answer radio clicks immediately show
+**Correct / Incorrect**, the correct option, and the authored explanation. For
+multiple answers, select exactly the displayed count of checkboxes and choose
+**Check answer**: the selected set must match every correct option, in any order.
+Each correct first submission earns one point; incorrect answers earn zero, with
+no partial credit or repeat-click points. **Previous / Next** review and advance;
+**Finish quiz / Summary** shows results, and **Restart / Retry quiz** clears that
+attempt after confirmation when answers exist. Unsupported formats show
+**Interactive quiz unavailable** with **Open source** when safely resolvable;
+answers are never guessed. Structured JSON is also supported for authored quizzes.
+
+Attempts survive closing/reopening the panel within the **same extension session**,
+but not an extension/VS Code restart. Source edits invalidate the old attempt when
+reread. **Persistent quiz scores are intentionally not implemented**: quiz results
+are not exported, do not complete activities, and do not change learning position.
+Unit/course **Reset progress** is unchanged and separate from quiz **Restart**.
+Feedback follows the **source author's key**, not AI or freshly checked Microsoft
+documentation; it is not an official exam result or evidence of certification.
+The initial client HTML does not contain the full raw answer key, but **Open source**
+remains available for self-study. This is not a secure exam system. These workflow
+notes do not claim a passing v0.2.0 test run, installation, or release.
 
 The tree shows **Course overview first, units next, then summary, cheatsheet, and
 teardown reference leaves** in manifest order. The manifest's optional `overview`
@@ -141,8 +185,8 @@ without a verified baseline or backup, source restoration must stop. Progress re
 is a separate extension **Reset progress** action, never a hidden/legacy-storage
 edit, and revert never touches cloud resources.
 
-**Zero auto-run:** installing the extension, adding a course, opening a lesson or
-notebook, and navigating activities must not run cells, checks, provisioning, or
+**Zero auto-run:** installing the extension, adding a course, opening a lesson,
+lab or quiz, and navigating activities must not run cells, checks, provisioning, or
 cleanup. Execution is always an explicit learner decision. Resetting progress
 does not clean up Azure resources; follow [teardown](99_teardown/README.md).
 
@@ -291,7 +335,8 @@ version **1.0.0**. This is an additive metadata adaptation: the existing **17 un
 teardown are supplemental resources, not extra units. The optional main overview
 and those reference pages are presentation-only and add **zero** tracked activities;
 exposing them does not require a `contentVersion` bump. The current content version
-remains **1.0.0** and schema version remains **1**.
+remains **1.0.0** and schema version remains **1**. Unit Lab/Quiz children and
+session-only quiz grading likewise add no activities or course completions.
 
 ---
 
