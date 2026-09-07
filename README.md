@@ -77,6 +77,38 @@ Each unit folder contains:
 
 ## Getting started
 
+### Optional Learning extension workflow
+
+This **private AI-103 course repository** stays separate from the planned
+[Cert Learner extension repository](https://github.com/tjav/cert-learner).
+That remote is intended to be created; a published extension or downloadable VSIX
+is **not guaranteed to be available yet**.
+
+1. Obtain a compatible Cert Learner VSIX from the maintainer (or a local build),
+  then use **Extensions: Install from VSIX...** in VS Code / Discovery. Reload
+  if prompted. The course remains usable without the extension.
+2. Open this local course folder, choose **Learning: Add Course**, and select
+  [course.json](course.json). In **Learning**, choose a unit and activity; use
+  **Learning: Resume Course** to return later. If these commands are unavailable,
+  use the file-based course workflow below until a compatible build is installed.
+3. Read the lesson, then choose **Open lab** or **Open quiz**. For a lab, select
+  your intended Python environment with the notebook's **Select Kernel** control.
+  Run only the cells you have reviewed. **Never Run All blindly: final cleanup
+  cells can delete resources.**
+4. Use **Mark complete** for your own learning record and **Reset progress** to
+  redo work; review the reset scope before confirming. AI-103 completion is
+  **manual and self-reported, not verified competence or an exam score**. There
+  are no automated cloud checks in this manifest.
+5. Optionally use Copilot **@certlearning** for an explanation or hint, if that
+  participant is available in your installed build. Copilot is not required.
+
+**Zero auto-run:** installing the extension, adding a course, opening a lesson or
+notebook, and navigating activities must not run cells, checks, provisioning, or
+cleanup. Execution is always an explicit learner decision. Resetting progress
+does not clean up Azure resources; follow [teardown](99_teardown/README.md).
+
+### Prepare labs when ready
+
 ```powershell
 cd ai103-learning
 
@@ -188,8 +220,15 @@ monthly, so trust that output over any table — including this one.
 
 ## Progress tracking
 
-Progress lives in [ai103-learning.json](ai103-learning.json), using the same
-schema as `qdk-learning.json`:
+**When using Cert Learner, the extension is authoritative.** Use the Learning UI
+to complete or reset activities and its progress export/import commands to move
+records. Do not read or edit the extension's hidden storage, and do not update
+[ai103-learning.json](ai103-learning.json) to represent extension progress. An
+assistant may query `certLearner.getState` through a supported extension-command
+interface if available; otherwise use the Learning UI, not a storage-file fallback.
+
+**Legacy workflow — only when not using the extension:** progress lives in
+[ai103-learning.json](ai103-learning.json):
 
 ```json
 {
@@ -200,8 +239,15 @@ schema as `qdk-learning.json`:
 }
 ```
 
-Mark an activity done by adding its key to `completions`, or ask the agent:
-*"mark 01_choose_services_and_models complete"*.
+In legacy mode only, mark an activity done by adding its key to `completions`, or
+ask the agent: *"mark 01_choose_services_and_models complete"*. This is also manual,
+unverified progress; it is not automatically synchronized with the extension.
+
+The manifest now declares format `cert-learner`, schema version **1**, and content
+version **1.0.0**. This is an additive metadata adaptation: the existing **17 units,
+62 activities, and 64 objective entries**, their IDs and wording, and the
+**16 April 2026** study-guide version are unchanged. Summary, cheatsheet, and
+teardown are supplemental resources, not extra units.
 
 ---
 

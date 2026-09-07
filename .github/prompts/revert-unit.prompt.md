@@ -1,6 +1,6 @@
 ---
 name: "Revert unit"
-description: "Reset one AI-103 unit so you can do it again. Clears the unit's progress in ai103-learning.json, clears your work in lab.ipynb and quiz.md, and removes local artifacts. Never deletes Azure resources — that is teardown. Use when a lab has gone sideways, when you want a clean second attempt, or when you are handing the course to someone else. Trigger phrases: revert unit, reset unit, redo this unit, undo my changes, start this unit over, clean slate, restore the lab, roll back unit."
+description: "Reset one AI-103 unit so you can do it again. Uses Learning UI progress reset when Cert Learner is active, or ai103-learning.json only without the extension; clears your work in lab.ipynb and quiz.md, and removes local artifacts. Never deletes Azure resources — that is teardown. Use when a lab has gone sideways, when you want a clean second attempt, or when you are handing the course to someone else. Trigger phrases: revert unit, reset unit, redo this unit, undo my changes, start this unit over, clean slate, restore the lab, roll back unit."
 argument-hint: "Unit number to revert, e.g. 02.3 (or 'all' to reset the whole course)"
 agent: "agent"
 ---
@@ -14,6 +14,13 @@ The unit to revert is in the prompt argument. If it is empty, check the active
 editor for an open unit file and offer that one; otherwise list the units from
 the Course map in `README.md` and ask.
 
+> **Progress authority:** if Cert Learner is active, query `certLearner.getState`
+> through a supported extension-command interface if available. Use Learning UI
+> reset/complete controls; never inspect or edit hidden extension storage. If the
+> query is unavailable, ask the learner to use the UI, not the legacy file.
+> [ai103-learning.json](../../ai103-learning.json) applies only without the
+> extension. Manual completion is a self-report, not a verified assessment.
+
 ## The one rule that matters
 
 **Revert means "let me do this unit again". It resets learning state, never cloud
@@ -21,7 +28,8 @@ state.**
 
 So the default action — the one you take unless told otherwise — is:
 
-1. **Reset progress** in `ai103-learning.json` so the unit is unstarted.
+1. **Reset progress** through the Learning UI when using Cert Learner; use
+  [ai103-learning.json](../../ai103-learning.json) only without the extension.
 2. **Clear the learner's work** in `lab.ipynb` / `quiz.md`, if there is any.
 3. **Remove local artifacts** — `__pycache__`, checkpoints, generated files.
 
@@ -111,7 +119,16 @@ and much less destructive intent than a full revert.
 
 ## Step 4 — Reset progress
 
-This is the part that always happens. Edit `ai103-learning.json`:
+**With Cert Learner:** use the Learning UI's **Reset progress** control for the
+selected unit, review its scope, and follow its confirmation. If this build only
+offers a course-wide reset, do not use that for a one-unit request; stop and explain
+the limitation. Re-query `certLearner.getState` through the supported interface if
+available, or ask the learner to confirm the UI state. Never edit hidden storage
+or the legacy progress file. A progress reset does not execute cleanup cells.
+
+### Legacy reset — only when not using the extension
+
+Edit [ai103-learning.json](../../ai103-learning.json):
 
 - Delete every key in `completions` belonging to this unit.
 - If `position.unitId` is this unit, set `position.activityId` back to the unit's
@@ -175,8 +192,10 @@ Leave `.env` alone. It is shared by every unit, and deleting it means re-running
 
 ## Step 7 — Verify and close out
 
-Prove the revert rather than asserting it — re-read the progress file and the
-notebook cell counts and show the actual numbers.
+Prove the revert rather than asserting it — check extension state through the
+supported command or Learning UI (re-read the legacy progress file only without
+the extension), and re-read notebook cell counts. Show the actual numbers; do not
+claim a reset happened if the learner has not confirmed the UI action.
 
 Then end with:
 

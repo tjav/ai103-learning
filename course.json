@@ -1,13 +1,27 @@
 {
   "$comment": "AI-103 Katas course manifest. Every 'objectives' entry is a verbatim bullet from the AI-103 study guide (skills measured as of 2026-04-16). Used by 90_summary to prove full coverage.",
+  "format": "cert-learner",
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
   "courseId": "ai103",
   "title": "AI-103 Katas — Developing AI Apps and Agents on Azure",
   "studyGuideVersion": "2026-04-16",
   "studyGuideUrl": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",
   "language": "python",
+  "resources": [
+    { "title": "Full study-guide summary", "path": "90_summary/README.md" },
+    { "title": "Cheatsheet (3 pages)", "path": "91_cheatsheet/CHEATSHEET.md" },
+    { "title": "Teardown", "path": "99_teardown/README.md" }
+  ],
   "units": [
     {
       "unitId": "00_setup",
+      "displayNumber": "00",
+      "resources": {
+        "lesson": "00_setup/README.md",
+        "lab": "00_setup/lab.ipynb",
+        "quiz": "00_setup/quiz.md"
+      },
       "title": "Setup — connect your Azure tenant",
       "domain": null,
       "weight": null,
@@ -22,6 +36,12 @@
 
     {
       "unitId": "01_choose_services_and_models",
+      "displayNumber": "01.1",
+      "resources": {
+        "lesson": "01_plan_and_manage/01_choose_services_and_models/README.md",
+        "lab": "01_plan_and_manage/01_choose_services_and_models/lab.ipynb",
+        "quiz": "01_plan_and_manage/01_choose_services_and_models/quiz.md"
+      },
       "domain": "Plan and manage an Azure AI solution",
       "weight": "25-30%",
       "title": "Choose the appropriate Foundry services for generative AI and agents",
@@ -38,6 +58,12 @@
     },
     {
       "unitId": "02_setup_foundry_solutions",
+      "displayNumber": "01.2",
+      "resources": {
+        "lesson": "01_plan_and_manage/02_setup_foundry_solutions/README.md",
+        "lab": "01_plan_and_manage/02_setup_foundry_solutions/lab.ipynb",
+        "quiz": "01_plan_and_manage/02_setup_foundry_solutions/quiz.md"
+      },
       "domain": "Plan and manage an Azure AI solution",
       "weight": "25-30%",
       "title": "Set up AI solutions in Foundry",
@@ -54,6 +80,12 @@
     },
     {
       "unitId": "03_manage_monitor_secure",
+      "displayNumber": "01.3",
+      "resources": {
+        "lesson": "01_plan_and_manage/03_manage_monitor_secure/README.md",
+        "lab": "01_plan_and_manage/03_manage_monitor_secure/lab.ipynb",
+        "quiz": "01_plan_and_manage/03_manage_monitor_secure/quiz.md"
+      },
       "domain": "Plan and manage an Azure AI solution",
       "weight": "25-30%",
       "title": "Manage, monitor, and secure AI systems",
@@ -70,6 +102,12 @@
     },
     {
       "unitId": "04_responsible_ai",
+      "displayNumber": "01.4",
+      "resources": {
+        "lesson": "01_plan_and_manage/04_responsible_ai/README.md",
+        "lab": "01_plan_and_manage/04_responsible_ai/lab.ipynb",
+        "quiz": "01_plan_and_manage/04_responsible_ai/quiz.md"
+      },
       "domain": "Plan and manage an Azure AI solution",
       "weight": "25-30%",
       "title": "Implement responsible AI across generative AI and agentic systems",
@@ -87,6 +125,12 @@
 
     {
       "unitId": "01_generative_apps",
+      "displayNumber": "02.1",
+      "resources": {
+        "lesson": "02_genai_and_agents/01_generative_apps/README.md",
+        "lab": "02_genai_and_agents/01_generative_apps/lab.ipynb",
+        "quiz": "02_genai_and_agents/01_generative_apps/quiz.md"
+      },
       "domain": "Implement generative AI and agentic solutions",
       "weight": "30-35%",
       "title": "Build generative applications by using Foundry",
@@ -102,6 +146,12 @@
     },
     {
       "unitId": "02_rag_grounding",
+      "displayNumber": "02.2",
+      "resources": {
+        "lesson": "02_genai_and_agents/02_rag_grounding/README.md",
+        "lab": "02_genai_and_agents/02_rag_grounding/lab.ipynb",
+        "quiz": "02_genai_and_agents/02_rag_grounding/quiz.md"
+      },
       "domain": "Implement generative AI and agentic solutions",
       "weight": "30-35%",
       "title": "RAG, workflows, and multistep reasoning",
@@ -114,6 +164,12 @@
     },
     {
       "unitId": "03_build_agents",
+      "displayNumber": "02.3",
+      "resources": {
+        "lesson": "02_genai_and_agents/03_build_agents/README.md",
+        "lab": "02_genai_and_agents/03_build_agents/lab.ipynb",
+        "quiz": "02_genai_and_agents/03_build_agents/quiz.md"
+      },
       "domain": "Implement generative AI and agentic solutions",
       "weight": "30-35%",
       "title": "Build agents by using Foundry",
@@ -128,6 +184,12 @@
     },
     {
       "unitId": "04_multi_agent_and_approvals",
+      "displayNumber": "02.4",
+      "resources": {
+        "lesson": "02_genai_and_agents/04_multi_agent_and_approvals/README.md",
+        "lab": "02_genai_and_agents/04_multi_agent_and_approvals/lab.ipynb",
+        "quiz": "02_genai_and_agents/04_multi_agent_and_approvals/quiz.md"
+      },
       "domain": "Implement generative AI and agentic solutions",
       "weight": "30-35%",
       "title": "Multi-agent orchestration, safeguards, and monitoring",
@@ -142,6 +204,12 @@
     },
     {
       "unitId": "05_optimize_and_observe",
+      "displayNumber": "02.5",
+      "resources": {
+        "lesson": "02_genai_and_agents/05_optimize_and_observe/README.md",
+        "lab": "02_genai_and_agents/05_optimize_and_observe/lab.ipynb",
+        "quiz": "02_genai_and_agents/05_optimize_and_observe/quiz.md"
+      },
       "domain": "Implement generative AI and agentic solutions",
       "weight": "30-35%",
       "title": "Optimize and operationalize generative AI systems",
@@ -159,6 +227,12 @@
 
     {
       "unitId": "01_image_and_video_generation",
+      "displayNumber": "03.1",
+      "resources": {
+        "lesson": "03_computer_vision/01_image_and_video_generation/README.md",
+        "lab": "03_computer_vision/01_image_and_video_generation/lab.ipynb",
+        "quiz": "03_computer_vision/01_image_and_video_generation/quiz.md"
+      },
       "domain": "Implement computer vision solutions",
       "weight": "10-15%",
       "title": "Design and implement image- and video-generation solutions",
@@ -176,6 +250,12 @@
     },
     {
       "unitId": "02_multimodal_understanding",
+      "displayNumber": "03.2",
+      "resources": {
+        "lesson": "03_computer_vision/02_multimodal_understanding/README.md",
+        "lab": "03_computer_vision/02_multimodal_understanding/lab.ipynb",
+        "quiz": "03_computer_vision/02_multimodal_understanding/quiz.md"
+      },
       "domain": "Implement computer vision solutions",
       "weight": "10-15%",
       "title": "Design and implement multimodal understanding workflows",
@@ -196,6 +276,12 @@
     },
     {
       "unitId": "03_responsible_ai_multimodal",
+      "displayNumber": "03.3",
+      "resources": {
+        "lesson": "03_computer_vision/03_responsible_ai_multimodal/README.md",
+        "lab": "03_computer_vision/03_responsible_ai_multimodal/lab.ipynb",
+        "quiz": "03_computer_vision/03_responsible_ai_multimodal/quiz.md"
+      },
       "domain": "Implement computer vision solutions",
       "weight": "10-15%",
       "title": "Implement responsible AI for multimodal content",
@@ -211,6 +297,12 @@
 
     {
       "unitId": "01_language_model_text_analysis",
+      "displayNumber": "04.1",
+      "resources": {
+        "lesson": "04_text_analysis/01_language_model_text_analysis/README.md",
+        "lab": "04_text_analysis/01_language_model_text_analysis/lab.ipynb",
+        "quiz": "04_text_analysis/01_language_model_text_analysis/quiz.md"
+      },
       "domain": "Implement text analysis solutions",
       "weight": "10-15%",
       "title": "Apply language model text analysis",
@@ -227,6 +319,12 @@
     },
     {
       "unitId": "02_speech_solutions",
+      "displayNumber": "04.2",
+      "resources": {
+        "lesson": "04_text_analysis/02_speech_solutions/README.md",
+        "lab": "04_text_analysis/02_speech_solutions/lab.ipynb",
+        "quiz": "04_text_analysis/02_speech_solutions/quiz.md"
+      },
       "domain": "Implement text analysis solutions",
       "weight": "10-15%",
       "title": "Implement speech solutions",
@@ -244,6 +342,12 @@
 
     {
       "unitId": "01_retrieval_and_grounding",
+      "displayNumber": "05.1",
+      "resources": {
+        "lesson": "05_information_extraction/01_retrieval_and_grounding/README.md",
+        "lab": "05_information_extraction/01_retrieval_and_grounding/lab.ipynb",
+        "quiz": "05_information_extraction/01_retrieval_and_grounding/quiz.md"
+      },
       "domain": "Implement information extraction solutions",
       "weight": "10-15%",
       "title": "Build retrieval and grounding pipelines",
@@ -261,6 +365,12 @@
     },
     {
       "unitId": "02_document_extraction",
+      "displayNumber": "05.2",
+      "resources": {
+        "lesson": "05_information_extraction/02_document_extraction/README.md",
+        "lab": "05_information_extraction/02_document_extraction/lab.ipynb",
+        "quiz": "05_information_extraction/02_document_extraction/quiz.md"
+      },
       "domain": "Implement information extraction solutions",
       "weight": "10-15%",
       "title": "Extract content from documents",

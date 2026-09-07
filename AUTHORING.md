@@ -3,6 +3,68 @@
 Read this before adding or editing a unit. It exists so every unit feels like it
 was written by one person.
 
+## Cert Learner manifest contract
+
+[course.json](course.json) is course metadata, not learner progress. The authoritative
+contract is the parent extension's [schema](../cert-learner/schemas/course.schema.json)
+and [core types and path validation](../cert-learner/src/core/course.ts), not a new
+course-specific validator. The sibling checkout links assume the two repositories
+are side by side; the extension's planned home is
+[tjav/cert-learner](https://github.com/tjav/cert-learner).
+
+- Required root fields: `format: "cert-learner"`, `schemaVersion: 1`,
+  `contentVersion: "1.0.0"`, `courseId`, `title`, and a nonempty `units` array.
+  Keep `contentVersion` distinct from the existing `studyGuideVersion` date.
+  Optional metadata includes `studyGuideUrl`, `studyGuideVersion`, `language`,
+  `references` (objects with `title` and HTTPS `url`), and root `resources`
+  (objects with `title` and `path` to Markdown files).
+- Each unit requires `unitId`, string `displayNumber`, `title`, `resources`, and
+  nonempty `activities`; `domain` is optional and may be null. Preserve existing
+  extension-independent metadata such as `weight` and the root `$comment`.
+- Resolve friendly numbers from the [README course map](README.md#course-map):
+  match the **parent folder basename of each lesson link** to `unitId`, not its
+  friendly link text. For example, `01.2` maps to `02_setup_foundry_solutions`.
+  Store the map's number as `displayNumber`; never rename an ID to match it.
+- Unit `resources.lesson` is required Markdown; optional `resources.lab` is a
+  notebook and optional `resources.quiz` is Markdown. Every path is **relative to
+  the course root**, not the unit folder, and uses forward slashes. Declare exact,
+  existing files: do not infer a lab from its unit ID. Paths must remain within
+  the root, including symlink targets; no absolute paths, traversal, hidden paths,
+  credential files, or reserved filenames. The root resources for **90**, **91**,
+  and **99** remain supplemental Markdown, not units or activities.
+- Activities require `activityId`, `title`, and `objectives` (an array that may
+  be empty). Unit IDs must be unique within a course; activity IDs within a unit.
+  IDs are nonempty strings of at most 128 characters without control characters.
+  Preserve all existing IDs, titles, objective wording, and array order.
+- `completion` is `"manual"` by default when omitted. **All AI-103 activities
+  remain manual**: progress is self-reported, not proof of a successful cloud lab,
+  exam readiness, or verified competence. Do not invent cloud validators.
+- A deliberately check-based activity uses `completion: "check"` and a `check`
+  object with `runtime` (`node`, `python`, or `pwsh`) and root-relative `file`.
+  Optional `cwd` is root-relative (`"."` means the course root); optional
+  `timeoutSeconds` is an integer from 1 to 3600 in the schema, although the runner
+  may impose a lower cap. Do not add arbitrary command strings or arguments.
+  Checks receive `--result` and `--run-id`; a result has `schemaVersion: 1`, the
+  exact `runId`, `status`, and nonempty `checks` with unique `id`, `status`, and
+  optional `message`. Status is `passed`, `failed`, or `blocked`; all individual
+  checks must pass for an overall pass. Checks require explicit approval and
+  trust, are not sandboxed, and must never run on course load or navigation.
+
+This adaptation adds metadata only: **17 units, 62 activities, and 64 objective
+entries** remain unchanged, against the study guide dated **16 April 2026**.
+Before a future content revision, review the intended `contentVersion` change
+without renaming stable IDs or silently changing the study-guide version.
+
+**Progress authority:** when Cert Learner is active, query `certLearner.getState`
+through a supported extension-command interface if available, and use Learning UI
+**Mark complete** / **Reset progress** controls. If the query is unavailable, ask
+the learner to use the UI; never inspect or edit hidden extension storage. The
+legacy [ai103-learning.json](ai103-learning.json) workflow applies only when not
+using the extension. **Zero auto-run:** authors must not trigger notebook cells,
+checks, provisioning, or cleanup merely by opening course content. Learners select
+their own notebook kernel; never advise blind **Run All**, because labs include
+cleanup cells.
+
 ## Unit anatomy
 
 ```

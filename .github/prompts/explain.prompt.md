@@ -15,6 +15,13 @@ resources. Do not mark progress complete. If the learner wants a hands-on portal
 exercise, finish the explanation first and then suggest
 `/portal-walkthrough <unit>`.
 
+> **Progress authority:** if Cert Learner is active, query `certLearner.getState`
+> through a supported extension-command interface if available. Otherwise ask the
+> learner for the Learning UI selection; never inspect or edit hidden extension
+> storage. Only without the extension may legacy [progress](../../ai103-learning.json)
+> provide state. Completion/reset belong in the Learning UI when using the
+> extension; this read-only prompt performs neither. Manual progress is unverified.
+
 ## Step 1 — Resolve what to explain
 
 Resolve the topic in this order:

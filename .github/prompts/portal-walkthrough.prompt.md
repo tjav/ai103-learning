@@ -13,6 +13,13 @@ AI-103 course described in the [main README](../../README.md).
 The learner's input (a unit number like `02.3`, a topic like "agents", or nothing)
 is in the prompt. Resolve it in step 1.
 
+> **Progress authority:** if Cert Learner is active, query `certLearner.getState`
+> through a supported extension-command interface if available; otherwise ask for
+> the Learning UI selection. Use Learning UI completion/reset controls, not hidden
+> extension storage. Manual completion is self-reported, not verified competence.
+> The legacy [progress file](../../ai103-learning.json) applies only when not using
+> the extension; an unavailable state query is not a reason to fall back to it.
+
 ## The one rule that matters
 
 **Drive the browser. Show them the screens.**
@@ -168,7 +175,9 @@ End with:
 - **Cleanup**, if they created something hourly-billed. Point at
   `99_teardown/README.md`.
 
-Offer to mark the unit complete in `ai103-learning.json`.
+When using Cert Learner, invite the learner to mark the relevant activities complete
+in the Learning UI. Only without the extension, offer to mark the unit complete in
+[ai103-learning.json](../../ai103-learning.json). Neither is an exam assessment.
 
 ## Notes
 
