@@ -1,11 +1,11 @@
 {
-  "$comment": "AI-103 Katas course manifest. Every 'objectives' entry is a verbatim bullet from the AI-103 study guide (skills measured as of 2026-04-16). Used by 90_summary to prove full coverage.",
+  "$comment": "AI-103 course manifest. Every 'objectives' entry is a verbatim bullet from the AI-103 study guide (skills measured as of 2026-04-16). Used by 90_summary to prove full coverage.",
   "format": "cert-learner",
   "schemaVersion": 1,
   "contentVersion": "1.0.0",
   "courseId": "ai103",
   "overview": "README.md",
-  "title": "AI-103 Katas — Developing AI Apps and Agents on Azure",
+  "title": "AI-103 — Developing AI Apps and Agents on Azure",
   "studyGuideVersion": "2026-04-16",
   "studyGuideUrl": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",
   "language": "python",

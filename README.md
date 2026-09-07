@@ -1,4 +1,4 @@
-# AI-103 Katas — Developing AI Apps and Agents on Azure
+# AI-103 — Developing AI Apps and Agents on Azure
 
 A hands-on, self-paced course for **Microsoft Certified: Azure AI Apps and Agents
 Developer Associate** (Exam **AI-103**), modelled on the Quantum Katas: short
@@ -79,13 +79,13 @@ Each unit folder contains:
 
 ### Optional Learning extension workflow
 
-This **private AI-103 course repository** stays separate from the
+This **public AI-103 course repository** stays separate from the
 [Cert Learner extension repository](https://github.com/tjav/cert-learner).
-The workflow below describes the **v0.2.0 implementation**, not a guarantee that
-that version has been published. Both repositories are private; obtain a compatible
-VSIX from a release you can access, the maintainer, or a local build.
+The workflow below describes **v0.2.0**, available from the extension's
+[GitHub Releases](https://github.com/tjav/cert-learner/releases).
+Both repositories can be read without private-repository access.
 
-1. Obtain a compatible Cert Learner VSIX from the maintainer (or a local build),
+1. Download the Cert Learner VSIX and verify its published SHA-256 checksum,
   then use **Extensions: Install from VSIX...** in VS Code / Discovery. Reload
   if prompted. The course remains usable without the extension.
 2. Open this local course folder; its root [course.json](course.json) is discovered
@@ -126,10 +126,12 @@ VSIX from a release you can access, the maintainer, or a local build.
 choose an existing local **parent folder**, then review and confirm the exact new
 repository-named child destination. Only HTTPS repository-root URLs and the default
 branch are supported, not SSH, tree/blob, branch/subfolder links, or URL parameters.
-Installed Git, workspace trust, and repository access are required. Any existing
-destination is refused, **even an empty folder**. Sign in separately with Git/Git
-Credential Manager first; previously configured trusted credential helpers supply
-private access noninteractively. **Never paste credentials or tokens into the input.**
+Installed Git, workspace trust, and network access are required. Any existing
+destination is refused, **even an empty folder**. This public course does not
+require GitHub authentication to clone. For other, private course repositories,
+sign in separately with Git/Git Credential Manager first; previously configured
+trusted credential helpers supply private access noninteractively.
+**Never paste credentials or tokens into the input.**
 The clone skips hooks and submodules, then checks out with isolated Git configuration
 to suppress filters; no course checks, notebook cells, requirements installation,
 or provisioning runs. Trusted authentication helpers may run, so this is **not a
@@ -159,8 +161,7 @@ Unit/course **Reset progress** is unchanged and separate from quiz **Restart**.
 Feedback follows the **source author's key**, not AI or freshly checked Microsoft
 documentation; it is not an official exam result or evidence of certification.
 The initial client HTML does not contain the full raw answer key, but **Open source**
-remains available for self-study. This is not a secure exam system. These workflow
-notes do not claim a passing v0.2.0 test run, installation, or release.
+remains available for self-study. This is not a secure exam system.
 
 The tree shows **Course overview first, units next, then summary, cheatsheet, and
 teardown reference leaves** in manifest order. The manifest's optional `overview`
@@ -231,6 +232,18 @@ for the full list of variables.
 > studio sites all work in the integrated browser — just ask the agent to "open the
 > Azure portal", or Ctrl/Cmd-click any portal link. Details in
 > [00_setup](00_setup/README.md#where-to-open-the-portal).
+
+## Contributions and main-branch access
+
+You can propose changes through issues or pull requests from your fork.
+**Only [tjav](https://github.com/tjav) may merge pull requests into `main` or
+update `main` directly.** GitHub repository rules enforce this; the code-owner
+entry in [.github/CODEOWNERS](.github/CODEOWNERS) identifies the reviewer but
+does not grant write or merge access.
+
+Never include credentials, local environment files, learner progress, or saved
+notebook outputs in a contribution. Public visibility is not an open-source
+license grant; no license is added by this publication.
 
 ## Using the course prompts
 

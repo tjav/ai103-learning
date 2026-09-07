@@ -9,7 +9,7 @@ was written by one person.
 contract is the parent extension's [schema](../cert-learner/schemas/course.schema.json)
 and [core types and path validation](../cert-learner/src/core/course.ts), not a new
 course-specific validator. The sibling checkout links assume the two repositories
-are side by side; the extension's private repository is
+are side by side; the extension's public repository is
 [tjav/cert-learner](https://github.com/tjav/cert-learner).
 
 - Required root fields: `format: "cert-learner"`, `schemaVersion: 1`,
