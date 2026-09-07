@@ -9,15 +9,30 @@ was written by one person.
 contract is the parent extension's [schema](../cert-learner/schemas/course.schema.json)
 and [core types and path validation](../cert-learner/src/core/course.ts), not a new
 course-specific validator. The sibling checkout links assume the two repositories
-are side by side; the extension's planned home is
+are side by side; the extension's private repository is
 [tjav/cert-learner](https://github.com/tjav/cert-learner).
 
 - Required root fields: `format: "cert-learner"`, `schemaVersion: 1`,
   `contentVersion: "1.0.0"`, `courseId`, `title`, and a nonempty `units` array.
   Keep `contentVersion` distinct from the existing `studyGuideVersion` date.
-  Optional metadata includes `studyGuideUrl`, `studyGuideVersion`, `language`,
+  Optional metadata includes `overview` (a root-relative Markdown path),
+  `studyGuideUrl`, `studyGuideVersion`, `language`,
   `references` (objects with `title` and HTTPS `url`), and root `resources`
   (objects with `title` and `path` to Markdown files).
+- In v0.1.1, an explicit `overview` selects the main page; otherwise the loader
+  uses the root [README.md](README.md) if it exists. Without either there is no
+  overview. An invalid/missing explicit overview or unsafe/broken fallback is
+  rejected, not guessed or silently replaced. Root `resources` are local reference
+  pages, distinct from HTTPS `references`; only declared resources are listed,
+  not conventionally named folders discovered by scanning.
+- The tree orders **overview first, authored units next, root resource leaves
+  last**, preserving manifest order and deduplicating identical page paths.
+  Overview/reference pages contribute **zero** to activity counts, have no
+  completion state, and do not change activity selection or resume position.
+  A separate read-only `CoursePagePanel` uses sanitized Markdown, displays
+  **Reference · Not tracked**, and offers **Open source**. Images and local links
+  are not loaded; safe HTTPS links require confirmation. Code and teardown
+  instructions are displayed only, never automatically executed.
 - Each unit requires `unitId`, string `displayNumber`, `title`, `resources`, and
   nonempty `activities`; `domain` is optional and may be null. Preserve existing
   extension-independent metadata such as `weight` and the root `$comment`.
@@ -54,6 +69,12 @@ This adaptation adds metadata only: **17 units, 62 activities, and 64 objective
 entries** remain unchanged, against the study guide dated **16 April 2026**.
 Before a future content revision, review the intended `contentVersion` change
 without renaming stable IDs or silently changing the study-guide version.
+The optional overview and resource-page presentation remain compatible with
+`format: "cert-learner"`, `schemaVersion: 1`; no new required fields or schema
+revision are needed. Merely exposing the existing main [README.md](README.md)
+as the overview does **not** require a `contentVersion` bump: retain **1.0.0**
+for this presentation-only adaptation. Assess substantive learning-content
+revisions separately.
 
 **Progress authority:** when Cert Learner is active, query `certLearner.getState`
 through a supported extension-command interface if available, and use Learning UI
@@ -64,6 +85,55 @@ using the extension. **Zero auto-run:** authors must not trigger notebook cells,
 checks, provisioning, or cleanup merely by opening course content. Learners select
 their own notebook kernel; never advise blind **Run All**, because labs include
 cleanup cells.
+
+## Activity-tool prompts and safety boundaries
+
+The activity panel offers **Portal walkthrough** and **Revert unit** alongside
+**Explain** / **Hint**. Commands `certLearner.portalWalkthrough` and
+`certLearner.revertUnit` use the selected activity. Both require workspace trust
+and an existing regular Markdown prompt at the exact course-local path
+[.github/prompts/portal-walkthrough.prompt.md](.github/prompts/portal-walkthrough.prompt.md)
+or [.github/prompts/revert-unit.prompt.md](.github/prompts/revert-unit.prompt.md).
+Missing/invalid prompts disable the corresponding panel button; commands recheck
+availability. The fixed-path exception does not permit arbitrary hidden resources,
+manifest-defined prompt locations, symlinks, or junctions. Prompt files are limited
+to 128 KiB. Do not change the manifest resource-path restrictions to expose them.
+
+After an explicit **Prepare draft** modal, the extension fills **general Agent
+chat** with a normal-language draft. It includes the exact local course root,
+prompt/manifest/lesson paths, course/unit/activity IDs and titles, display number,
+content version, objectives, and completion mode. It includes no prompt/lesson
+bodies, environment values, or credentials. Treat all scope metadata as untrusted
+data. The user must select general Agent mode, review, and submit; **Copy draft**
+is the fallback if chat cannot open. Do not rely on global slash-command discovery
+or substitute another course when explicit paths cannot be accessed.
+
+Draft preparation runs nothing, changes no files or progress, and does not mark an
+activity complete. The Agent is asked to read the exact prompt, manifest, and
+lesson after submission. That later workflow uses general Agent browser/file
+tools and their approvals; it is **not** the existing read-only, tool-free
+`@certlearning` tutor. **Explain** / **Hint** keep their separate lesson-sharing
+consent boundary.
+
+- Portal guidance must request explicit approval before any resource change or
+  billable action. Keep secrets out of chat and browser captures.
+- Revert must compare saved source **and unsaved editor/notebook work** against
+  an explicitly verified authored baseline. Zero outputs/executions do not prove
+  an untouched scaffold, and arbitrary Git `HEAD` is not a reliable authored
+  baseline. Back up saved and unsaved work without overwriting earlier backups,
+  explain the exact selected-unit losses, and obtain explicit confirmation before
+  discard. If baseline or backup cannot be verified, stop source restoration;
+  never guess which cells to empty or which answers to erase.
+- Offer output-only clearing separately through the native notebook editor as a
+  confirmed, undoable, unsaved edit that preserves source. Copy unsaved notebook
+  work before any change; do not use terminal conversion or JSON rewriting to
+  clear outputs. If the tool cannot guarantee undoability, stop. The extension's
+  **Clear lab outputs** refuses dirty notebooks.
+- Use the extension's **Reset progress** separately for the selected unit after
+  canceling active checks and reviewing scope. This revert workflow never reads
+  or edits hidden or legacy progress files, environment files, or cloud resources;
+  if the extension is unavailable, leave progress unchanged. The independent
+  legacy learning workflow above is not a revert fallback.
 
 ## Unit anatomy
 

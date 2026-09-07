@@ -4,6 +4,7 @@
   "schemaVersion": 1,
   "contentVersion": "1.0.0",
   "courseId": "ai103",
+  "overview": "README.md",
   "title": "AI-103 Katas — Developing AI Apps and Agents on Azure",
   "studyGuideVersion": "2026-04-16",
   "studyGuideUrl": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",

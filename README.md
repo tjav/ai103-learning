@@ -79,16 +79,19 @@ Each unit folder contains:
 
 ### Optional Learning extension workflow
 
-This **private AI-103 course repository** stays separate from the planned
+This **private AI-103 course repository** stays separate from the
 [Cert Learner extension repository](https://github.com/tjav/cert-learner).
-That remote is intended to be created; a published extension or downloadable VSIX
-is **not guaranteed to be available yet**.
+The workflow below describes the **v0.1.1 implementation**, not a guarantee that
+that version has been published. Both repositories are private; obtain a compatible
+VSIX from a release you can access, the maintainer, or a local build.
 
 1. Obtain a compatible Cert Learner VSIX from the maintainer (or a local build),
   then use **Extensions: Install from VSIX...** in VS Code / Discovery. Reload
   if prompted. The course remains usable without the extension.
-2. Open this local course folder, choose **Learning: Add Course**, and select
-  [course.json](course.json). In **Learning**, choose a unit and activity; use
+2. Open this local course folder; its root [course.json](course.json) is discovered
+  automatically. For another location, choose **Learning: Add Course** and select
+  the **course folder containing the manifest**, not the manifest file. In
+  **Learning**, read **Course overview** or choose a unit and activity; use
   **Learning: Resume Course** to return later. If these commands are unavailable,
   use the file-based course workflow below until a compatible build is installed.
 3. Read the lesson, then choose **Open lab** or **Open quiz**. For a lab, select
@@ -96,11 +99,47 @@ is **not guaranteed to be available yet**.
   Run only the cells you have reviewed. **Never Run All blindly: final cleanup
   cells can delete resources.**
 4. Use **Mark complete** for your own learning record and **Reset progress** to
-  redo work; review the reset scope before confirming. AI-103 completion is
+  reset that unit's record, not its files; review the scope before confirming.
+  AI-103 completion is
   **manual and self-reported, not verified competence or an exam score**. There
   are no automated cloud checks in this manifest.
 5. Optionally use Copilot **@certlearning** for an explanation or hint, if that
-  participant is available in your installed build. Copilot is not required.
+  participant is available in your installed build. This is a **read-only tutor
+  without browser/file tools**, not the general Agent workflow. Copilot is not required.
+6. **Portal walkthrough** and **Revert unit** appear alongside **Explain** / **Hint**
+  in **Activity tools**. The equivalent commands are **Learning: Portal Walkthrough**
+  (`certLearner.portalWalkthrough`) and **Learning: Revert Unit** (`certLearner.revertUnit`).
+  They require a trusted workspace and the corresponding existing fixed prompt:
+  [.github/prompts/portal-walkthrough.prompt.md](.github/prompts/portal-walkthrough.prompt.md)
+  or [.github/prompts/revert-unit.prompt.md](.github/prompts/revert-unit.prompt.md).
+  Missing/invalid prompts disable the corresponding panel button; commands also
+  validate availability. Choose **Prepare draft** in the explicit modal, then
+  **select general Agent mode, review, and submit the draft yourself**. Use general
+  Agent mode, not `@certlearning`, for browser/file tools. If chat cannot open,
+  **Copy draft** offers the same request without running it.
+
+The tree shows **Course overview first, units next, then summary, cheatsheet, and
+teardown reference leaves** in manifest order. The manifest's optional `overview`
+points to this [README.md](README.md); when omitted, the extension falls back to a
+root README only if it exists. Overview/reference pages use a separate read-only
+panel with sanitized Markdown and **Open source**. Images and local links are not
+loaded; safe HTTPS links need confirmation. These pages contribute **zero** to
+activity counts and do not change completion or resume position. Opening teardown
+only displays guidance; it never runs cleanup.
+
+Activity-tool drafts are normal-language requests containing the **exact local
+course root, prompt, manifest, and lesson paths**, plus course/unit/activity
+metadata, **not file bodies, environment values, or credentials**. Review local
+paths and metadata before sharing. The Agent is asked to read those specific files
+only after you submit; global slash-command discovery is not required. If those
+paths are inaccessible, ask for help rather than substitute another course.
+Clicking either button does **not** run code, change files, reset progress, or
+mark anything complete. Portal guidance requires separate approval for resource
+changes or billable actions. Revert requires a verified authored source baseline,
+a backup including unsaved work, and explicit confirmation before any local discard;
+without a verified baseline or backup, source restoration must stop. Progress reset
+is a separate extension **Reset progress** action, never a hidden/legacy-storage
+edit, and revert never touches cloud resources.
 
 **Zero auto-run:** installing the extension, adding a course, opening a lesson or
 notebook, and navigating activities must not run cells, checks, provisioning, or
@@ -152,15 +191,17 @@ for the full list of variables.
 ## Using the course prompts
 
 The reusable prompts are in [.github/prompts](.github/prompts). In VS Code or
-Discovery chat, type `/`, choose a prompt, and add a unit number or topic. If a
-prompt does not appear immediately after cloning, reload the editor window so it
-discovers the workspace prompt files.
+Discovery **general Agent chat**, type `/`, choose a prompt, and add a unit number
+or topic. These workspace prompts are separate from the tool-free `@certlearning`
+tutor. If a prompt does not appear immediately after cloning, reload the editor window so it
+discovers the workspace prompt files. The extension's activity-tool drafts instead
+name the exact local prompt file, so they do not depend on slash-command discovery.
 
 | Prompt | What it does | Example |
 |---|---|---|
 | **`/explain`** | Adds context to a unit, topic, portal field, exam distinction, or selected code. It reads the course material, explains the idea in plain English, gives an example and exam lens, and links to current official Microsoft Learn documentation. It is read-only. | **`/explain 01.2 DataZoneStandard vs GlobalStandard`** |
 | **`/portal-walkthrough`** | Opens the correct Azure or Foundry portal in the integrated browser and teaches one screen at a time. It verifies the tenant and what you build. Navigation is automatic; resource changes require confirmation because they can cost money. | **`/portal-walkthrough 02.3`** |
-| **`/revert-unit`** | Resets the selected unit's learning progress and local lab work so you can redo it. It **never deletes Azure resources**; cloud cleanup belongs to unit 99. | **`/revert-unit 01.2`** |
+| **`/revert-unit`** | Plans a selected-unit local restore only after verifying an authored baseline, backing up saved and unsaved work, and obtaining explicit confirmation. Offers separate undoable native output clearing and Learning UI **Reset progress**; never edits hidden/legacy progress or touches cloud resources. | **`/revert-unit 01.2`** |
 
 Useful examples:
 
@@ -169,7 +210,7 @@ Useful examples:
 - Select code in a notebook, then use **`/explain this code`** — get a line-by-line mental model without receiving the full lab solution.
 - **`/portal-walkthrough 01.3 let me click`** — you drive while the agent gives exact click paths and verifies each screen.
 - **`/portal-walkthrough 01.2 demo mode`** — the agent navigates while narrating each screen; it still asks before any write or billable action.
-- **`/revert-unit 00`** — reset setup progress without destroying the shared Azure environment.
+- **`/revert-unit 00`** — review a safe local redo plan and separately reset setup progress in the Learning UI without touching the shared Azure environment.
 
 The prompts use the **Course map** above to resolve friendly numbers such as
 `01.2`, then [course.json](course.json) for the unit objectives. You can also name
@@ -247,7 +288,10 @@ The manifest now declares format `cert-learner`, schema version **1**, and conte
 version **1.0.0**. This is an additive metadata adaptation: the existing **17 units,
 62 activities, and 64 objective entries**, their IDs and wording, and the
 **16 April 2026** study-guide version are unchanged. Summary, cheatsheet, and
-teardown are supplemental resources, not extra units.
+teardown are supplemental resources, not extra units. The optional main overview
+and those reference pages are presentation-only and add **zero** tracked activities;
+exposing them does not require a `contentVersion` bump. The current content version
+remains **1.0.0** and schema version remains **1**.
 
 ---
 
